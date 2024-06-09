@@ -22,6 +22,15 @@ Peace out! 🐼
 '''
 
 
+class SetUpAction(argparse.Action):
+    def __init__(self, option_strings, dest, nargs=0, **kwargs):
+        super().__init__(option_strings, dest, nargs=0, **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        os.system('pip install -r requirements.txt')
+        parser.exit()
+
+
 class InfoAction(argparse.Action):
     def __init__(self, option_strings, dest, nargs=0, **kwargs):
         super().__init__(option_strings, dest, nargs=0, **kwargs)
