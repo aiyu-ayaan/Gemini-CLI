@@ -8,6 +8,23 @@ from version import InfoAction
 console = console.Console()
 
 
+def create_key_file():
+    try:
+        print('Generating key file from  https://ai.google.dev/gemini-api/docs/api-key')
+        api_key = input('Enter your key: ')
+        while len(api_key) == 0:
+            console.print('Key cannot be empty.\nLink to generate key https://ai.google.dev/gemini-api/docs/api-key',
+                          style='bold red')
+            api_key = input('Enter your key: ')
+        with open('key.txt', 'w') as f:
+            f.write(api_key)
+            f.close()
+    except Exception as e:
+        console.print('Error creating key file.',
+                      style='bold red')
+        exit(1)
+
+
 def load_key_from_root():
     try:
         with open('key.txt', 'r') as f:
@@ -18,11 +35,11 @@ def load_key_from_root():
                     style='bold red')
                 exit(1)
             f.seek(0)
+            console.log('Key loaded successfully')
             return f.readline().strip()
     except FileNotFoundError as e:
-        console.print('Key file not found\nLink to generate key https://ai.google.dev/gemini-api/docs/api-key',
-                      style='bold red')
-        exit(1)
+        create_key_file()
+        return load_key_from_root()
     except Exception as e:
         console.print('Error reading key file\nLink to generate key https://ai.google.dev/gemini-api/docs/api-key',
                       style='bold red')
@@ -35,7 +52,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Gemini CLI')
     parser.add_argument('--question', '-q', type=str, help='Question to ask Gemini')
     parser.add_argument('--word-limit', '-wl', help='Word limit for the response', type=int, default=0)
-    # parser.add_argument('--version', '-v', action='version', version=f'%(prog)s {__version__}', help='Show version')
     parser.add_argument('--info', '-i', action=InfoAction, help='About Gemini CLI')
 
     # parse the arguments
