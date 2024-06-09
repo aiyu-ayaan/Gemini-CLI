@@ -1,12 +1,15 @@
 import gemini as gemini
 import argparse
 import sys
+from version import InfoAction
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Gemini CLI')
-    parser.add_argument('question', type=str, help='Question to ask Gemini')
-    # add optional arguments here"
+    parser.add_argument('--question', '-q', type=str, help='Question to ask Gemini')
     parser.add_argument('--word-limit', '-wl', help='Word limit for the response', type=int, default=0)
+    # parser.add_argument('--version', '-v', action='version', version=f'%(prog)s {__version__}', help='Show version')
+    parser.add_argument('--info', '-i', action=InfoAction, help='About Gemini CLI')
+
     # parse the arguments
     args = parser.parse_args()
     question = args.question.strip()

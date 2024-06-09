@@ -16,11 +16,11 @@ class Gemini:
 
     def ask(self, question: str, max_words: int = 0):
         console.print(f'🐼', f'Asking: {question}\n', style='bold blue')
-        with console.status('Generating response...') as status:
+        with console.status('[bold green]Generating response...',spinner='monkey'):
             try:
                 has_error = False
                 response = self.__model.generate_content(
-                    question if max_words == 0 else question + f'Word limit {max_words}').text
+                    question if max_words == 0 else question + f' Word limit {max_words}').text
 
             except Exception as e:
                 has_error = True
