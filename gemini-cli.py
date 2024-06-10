@@ -18,6 +18,7 @@ def create_key_file():
         with open('key.txt', 'w') as f:
             f.write(api_key)
             f.close()
+            console.print('Key file created successfully')
     except Exception as e:
         console.print('Error creating key file.',
                       style='bold red')
@@ -34,7 +35,6 @@ def load_key_from_root():
                     style='bold red')
                 exit(1)
             f.seek(0)
-            # console.log('Key loaded successfully')
             return f.readline().strip()
     except FileNotFoundError as e:
         create_key_file()
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     g = gemini.Gemini(key=key)
 
     if youtube_url:
-        g.summarize_transcript(youtube_url=youtube_url, max_words=max_words)
+        g.summarize_transcript(youtube_url=youtube_url, max_words=max_words, question=question if question else '')
         sys.exit(0)
     # check if the question is empty
     if len(question) == 0:

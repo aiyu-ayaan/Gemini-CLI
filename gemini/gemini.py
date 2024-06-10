@@ -33,14 +33,17 @@ class Gemini:
             markdown = Markdown(response)
             console.print(markdown, style='bold green')
 
-    def summarize_transcript(self, youtube_url: str, max_words: int = 0):
+    def summarize_transcript(self, youtube_url: str, question: str = '', max_words: int = 0):
         console.print(f'🐼', f'Getting transcript from: {youtube_url}\n', style='bold blue')
-        with console.status('[bold green]Generating summary...', spinner='earth'):
+        with console.status(f'[bold green]{'Generating answer...' if question else 'Generating summary...'}',
+                            spinner='earth'):
             try:
                 has_error = False
                 transcript = YoutubeTranscript.get_transcript(youtube_url)
                 if transcript:
-                    q = 'Summaries this transcript from youtube \n' + transcript
+                    base_question = 'Summaries this transcript from youtube \n' + transcript
+                    q = base_question if len(question) == 0 \
+                        else base_question + f'\n\nQuestion: {question}'
                     response = self.__model.generate_content(
                         q if max_words == 0 else q + f' Word limit {max_words}'
                     ).text
