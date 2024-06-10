@@ -1,5 +1,4 @@
 from rich import console
-
 import gemini as gemini
 import argparse
 import sys
@@ -35,7 +34,7 @@ def load_key_from_root():
                     style='bold red')
                 exit(1)
             f.seek(0)
-            console.log('Key loaded successfully')
+            # console.log('Key loaded successfully')
             return f.readline().strip()
     except FileNotFoundError as e:
         create_key_file()
@@ -53,15 +52,22 @@ if __name__ == '__main__':
     parser.add_argument('--question', '-q', type=str, help='Question to ask Gemini')
     parser.add_argument('--word-limit', '-wl', help='Word limit for the response', type=int, default=0)
     parser.add_argument('--info', '-i', action=InfoAction, help='About Gemini CLI')
+    parser.add_argument('--youtube', '-yt', type=str, help='YouTube URL to get transcript from')
 
     # parse the arguments
     args = parser.parse_args()
-    question = args.question.strip()
+    question = args.question
     max_words = args.word_limit
+    youtube_url = args.youtube
+
+    g = gemini.Gemini(key=key)
+
+    if youtube_url:
+        g.summarize_transcript(youtube_url=youtube_url, max_words=max_words)
+        sys.exit(0)
     # check if the question is empty
     if len(question) == 0:
         print('Question cannot be empty')
         sys.exit(1)
     # create a Gemini instance
-    g = gemini.Gemini(key=key)
-    g.ask(question, max_words)
+    g.ask(question.strip(), max_words)
