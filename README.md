@@ -1,5 +1,6 @@
 ## Gemini CLI: Interact with Google's AI on the Command Line
 
+![Preview Image](preview.png)
 This is a command-line interface (CLI) for interacting with Google's Gemini large language models (LLMs) using your
 Gemini API key. It allows you to:
 
@@ -123,6 +124,7 @@ python gemini-cli -yt "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -wl 100 -q "
 ```
 
 **License:**
+
 ```plaintext
 This is free and unencumbered software released into the public domain.
 
