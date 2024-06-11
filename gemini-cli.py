@@ -8,6 +8,8 @@ console = console.Console()
 
 
 def create_key_file():
+    """Create a key file if it does not exist
+    """
     try:
         print('Generating key file from  https://ai.google.dev/gemini-api/docs/api-key')
         api_key = input('Enter your key: ')
@@ -25,7 +27,12 @@ def create_key_file():
         exit(1)
 
 
-def load_key_from_root():
+def load_key_from_root() -> str:
+    """Loads the key from the root
+
+    Returns:
+        str: API key
+    """
     try:
         with open('key.txt', 'r') as f:
             #         check if the key is empty
@@ -46,6 +53,8 @@ def load_key_from_root():
 
 
 if __name__ == '__main__':
+    """Main function
+    """
     # load the key from the root
     key = load_key_from_root()
     parser = argparse.ArgumentParser(description='Gemini CLI')
