@@ -1,0 +1,11 @@
+google-ai-generativelanguage==0.6.4
+google-api-core==2.19.0
+google-api-python-client==2.132.0
+google-auth==2.30.0
+google-auth-httplib2==0.2.0
+google-generativeai==0.6.0
+googleapis-common-protos==1.63.1
+protobuf==5.27.1
+Requests==2.32.3
+rich==13.7.1
+youtube_transcript_api==0.6.2
