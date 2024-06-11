@@ -91,7 +91,7 @@ In this example:
 
 - The `-yt` tag specifies the YouTube URL.
 - The `-wl` tag sets a word limit of 100 words for the response.
-- The `-q` tag provides the question to ask Gemini, which in this case is to summarize the main points of the video.
+- The `-q` tag provides the question to ask Gemini which in this case is to summarize the main points of the video.
 
 ## Examples
 
