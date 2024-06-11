@@ -1,6 +1,6 @@
 ## Gemini CLI: Interact with Google's AI on the Command Line
 
-![Preview Image](preview.png)
+![Preview Image](res/preview.png)
 This is a command-line interface (CLI) for interacting with Google's Gemini large language models (LLMs) using your
 Gemini API key. It allows you to:
 
@@ -10,17 +10,17 @@ Gemini API key. It allows you to:
 * **Ask questions about YouTube videos:**  After summarizing a video, use Gemini's knowledge to answer your questions
   about the content.
 
-**Features:**
+## Features:
 
 * Simple and easy-to-use interface
 * Integrates with YouTube summaries for informed questioning
 * Leverages the power of Google's Gemini LLMs
 
-**Requirements:**
+## Requirements:
 
 * **Gemini API key:** Obtain a key from [https://ai.google.dev/gemini-api/docs/api-key) (Free tier available)
 
-**Installation:**
+## Installation:
 
 There are two ways to get started with Gemini CLI:
 
@@ -49,11 +49,11 @@ There are two ways to get started with Gemini CLI:
           pip install -r requirements.txt
           ```
 
-**Usage:**
+## Usage:
 The Gemini CLI provides several command-line arguments to interact with the tool. Below are the supported arguments and
 their descriptions.
 
-**Arguments:**
+## Arguments:
 
 - `--question`, `-q`:
     - Type: `str`
@@ -76,7 +76,7 @@ their descriptions.
     - Description: YouTube URL to get the transcript from.
     - Example: `--youtube "https://www.youtube.com/watch?v=dQw4w9WgXcQ"`
 
-### Summarizing YouTube Videos
+### Examples:
 
 To summarize a YouTube video, you can use the `-yt`, `-wl`, and `-q` tags together. Below is an example of how to use
 these tags:
@@ -91,39 +91,39 @@ In this example:
 - The `-wl` tag sets a word limit of 100 words for the response.
 - The `-q` tag provides the question to ask Gemini, which in this case is to summarize the main points of the video.
 
-**Examples**
+## Examples
 
-**Asking a Question**
+### Asking a Question
 
 ```bash
 python gemini-cli -q "What is the weather like today?"
 ```
 
-**Setting a Word Limit for the Response**
+### Setting a Word Limit for the Response
 
 ```bash
 python gemini-cli -q "Explain the theory of relativity." -wl 50
 ```
 
-**Getting Information About the CLI**
+### Getting Information About the CLI
 
 ```bash
 python gemini-cli -i
 ```
 
-**Summarizing a YouTube Video**
+### Summarizing a YouTube Video
 
 ```bash
 python gemini-cli -yt "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 ```
 
-**Asking a Question About a YouTube Video**
+### Asking a Question About a YouTube Video
 
 ```bash
 python gemini-cli -yt "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -wl 100 -q "What are the main points discussed in this video?"
 ```
 
-**License:**
+## License
 
 ```plaintext
 This is free and unencumbered software released into the public domain.

@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['gemini-cli.py'],
+    ['src/gemini-cli/gemini-cli.py'],
     pathex=[],
     binaries=[],
     datas=[],

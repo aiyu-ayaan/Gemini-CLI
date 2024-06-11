@@ -1,0 +1,72 @@
+site_name: Gemini-CLI
+theme:
+  #  logo: assets/logo.png
+  #  favicon: assets/logo.png
+  name: material
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+      primary: black
+      accent: green
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+      primary: black
+      accent: green
+  font:
+    text: "Roboto"
+    code: "Roboto Mono"
+  features:
+    - navigation.sections
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+  search: true
+
+repo_url: https://github.com/aiyu-ayaan/Gemini-CLI
+repo_name: Gemini-Ai-Streamlit
+plugins:
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: true
+      skip_classes:
+        - custom-skip-class-name
+      auto_caption: false
+      caption_position: bottom
+  - gen-files:
+      scripts:
+        - scripts/gen_ref_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - search
+  - section-index:
+  - mkdocstrings:
+      handlers:
+        python:
+          paths:
+            - src
+          options:
+            allow_inspection: true
+            docstring_style: google
+            docstring_section_style: list
+            show_bases: true
+            heading_level: 4
+            parameter_headings: true
+            annotations_path: full

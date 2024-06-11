@@ -17,7 +17,7 @@ def create_key_file():
             console.print('Key cannot be empty.\nLink to generate key https://ai.google.dev/gemini-api/docs/api-key',
                           style='bold red')
             api_key = input('Enter your key: ')
-        with open('key.txt', 'w') as f:
+        with open('../../key.txt', 'w') as f:
             f.write(api_key)
             f.close()
             console.print('Key file created successfully')
@@ -34,7 +34,7 @@ def load_key_from_root() -> str:
         str: API key
     """
     try:
-        with open('key.txt', 'r') as f:
+        with open('../../key.txt', 'r') as f:
             #         check if the key is empty
             if len(f.read()) == 0:
                 console.print(

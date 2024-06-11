@@ -2,14 +2,15 @@ import google.generativeai as genai
 from rich.console import Console
 from rich.markdown import Markdown
 
-from gemini.youtube_transcript import YoutubeTranscript
+from youtube_transcript import YoutubeTranscript
 
 console = Console()
 
 
 class Gemini:
     """Clas to interact with the Gemini API
-    """    
+    """
+
     def __init__(self, key):
         if key is None or len(key) == 0:
             console.print('❌', 'API key is required', style='bold red')
@@ -23,7 +24,7 @@ class Gemini:
         Args:
             question (str): Question to ask
             max_words (int, optional): Word limit. Defaults to 0.
-        """        
+        """
         console.print(f'🐼', f'Asking: {question}\n', style='bold blue')
         with console.status('[bold green]Generating response...', spinner='moon'):
             try:
@@ -48,7 +49,7 @@ class Gemini:
             youtube_url (str): link to the youtube video
             question (str, optional): Question to wants to ask. Defaults to ''.
             max_words (int, optional): Word limit. Defaults to 0.
-        """        
+        """
         console.print(f'🐼', f'Getting transcript from: {youtube_url}\n', style='bold blue')
         with console.status(f'[bold green]{'Generating answer...' if question else 'Generating summary...'}',
                             spinner='earth'):
