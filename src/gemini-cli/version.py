@@ -5,7 +5,7 @@ import argparse
 console = Console()
 
 __name__ = 'gemini-cli'
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __author__ = 'Ayaan'
 __author_email__ = 'ayaan35200@gmail.com'
 __description__ = 'A CLI for Gemini'

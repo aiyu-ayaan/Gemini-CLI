@@ -1,5 +1,6 @@
 from rich import console
 import gemini as gemini
+import pdf as pdf
 import argparse
 import sys
 from version import InfoAction
@@ -58,18 +59,36 @@ if __name__ == '__main__':
     # load the key from the root
     key = load_key_from_root()
     parser = argparse.ArgumentParser(description='Gemini CLI')
-    parser.add_argument('--question', '-q', type=str, help='Question to ask Gemini')
+    parser.add_argument('--question', '-q', type=str, help='Question to ask Gemini', default='')
     parser.add_argument('--word-limit', '-wl', help='Word limit for the response', type=int, default=0)
     parser.add_argument('--info', '-i', action=InfoAction, help='About Gemini CLI')
     parser.add_argument('--youtube', '-yt', type=str, help='YouTube URL to get transcript from')
+    parser.add_argument('--pdf', '-p', type=str, help='PDF file path to summarize')
+    parser.add_argument('--start-page-index', '-spi', type=int, help='Start page index for the PDF file', default=0)
+    parser.add_argument('--end-page-index', '-epi', type=int, help='End page index for the PDF file', default=None)
 
     # parse the arguments
     args = parser.parse_args()
     question = args.question
     max_words = args.word_limit
     youtube_url = args.youtube
+    pdf_file_path = args.pdf
+    start_page_index = args.start_page_index
+    end_page_index = args.end_page_index
 
     g = gemini.Gemini(key=key)
+
+    # check if the pdf file path is not empty
+    if pdf_file_path:
+        p = pdf.PyPdfHelper(pdf_file_path)
+        console.print('Summarizing PDF...\nThis will take a significant time', style='bold blue')
+        text = p.get_text(
+            start=start_page_index,
+            end=end_page_index
+        )
+        # console.print(text, style='bold green')
+        g.generate_response_from_pdf(text, question, max_words)
+        sys.exit(0)
 
     if youtube_url:
         g.summarize_transcript(youtube_url=youtube_url, max_words=max_words, question=question if question else '')

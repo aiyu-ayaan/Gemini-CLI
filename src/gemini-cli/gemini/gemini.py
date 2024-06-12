@@ -2,7 +2,7 @@ import google.generativeai as genai
 from rich.console import Console
 from rich.markdown import Markdown
 
-from youtube_transcript import YoutubeTranscript
+from gemini.youtube_transcript import YoutubeTranscript
 
 console = Console()
 
@@ -23,7 +23,7 @@ class Gemini:
 
         Args:
             question (str): Question to ask
-            max_words (int, optional): Word limit. Defaults to 0.
+            max_words (int, optional): Word limit. Default to 0.
         """
         console.print(f'🐼', f'Asking: {question}\n', style='bold blue')
         with console.status('[bold green]Generating response...', spinner='moon'):
@@ -43,12 +43,12 @@ class Gemini:
             console.print(markdown, style='bold green')
 
     def summarize_transcript(self, youtube_url: str, question: str = '', max_words: int = 0):
-        """Summarize a transcript from a youtube video or can answer a question from the transcript
+        """Summarize a transcript from a YouTube video or can answer a question from the transcript
 
         Args:
-            youtube_url (str): link to the youtube video
-            question (str, optional): Question to wants to ask. Defaults to ''.
-            max_words (int, optional): Word limit. Defaults to 0.
+            youtube_url (str): link to the YouTube video
+            question (str, optional): Question to want to ask. Defaults to ''.
+            max_words (int, optional): Word limit. Default to 0.
         """
         console.print(f'🐼', f'Getting transcript from: {youtube_url}\n', style='bold blue')
         with console.status(f'[bold green]{'Generating answer...' if question else 'Generating summary...'}',
@@ -69,6 +69,33 @@ class Gemini:
             except Exception as e:
                 has_error = True
                 response = e
+        if has_error:
+            console.print('❌', f' Error: {response}', style='bold red')
+        else:
+            markdown = Markdown(response)
+            console.print(markdown, style='bold green')
+
+    def generate_response_from_pdf(self, text: str, question: str, max_words: int = 0):
+        """Generate a response from the PDF
+
+        Args:
+            text (str): Text to generate a response from
+            question (str): Question to ask
+            max_words (int, optional): Word limit. Default to 0.
+        """
+        console.print(f'🐼', f'Generating response from the PDF\n', style='bold blue')
+        with console.status('[bold green]Generating response...', spinner='moon'):
+            try:
+                has_error = False
+                question = text + '\n\nSummaries the context as elaborated possible' if len(
+                    question) == 0 else text + f'\n\nQuestion: {question}'
+                response = self.__model.generate_content(
+                    question if max_words == 0 else question + f' Word limit {max_words}'
+                ).text
+            except Exception as e:
+                has_error = True
+                response = e
+
         if has_error:
             console.print('❌', f' Error: {response}', style='bold red')
         else:
