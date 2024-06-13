@@ -3,17 +3,18 @@ on:
   push:
     tags:
       - 'v*' # This will trigger the workflow on any tag that starts with 'v'
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: : Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v2
+
       - name: Install dependencies
         run: |
           python3 -m venv venv
           source venv/bin/activate
-          ls -la
           pip install -r ./requirements.txt
           pip install pyinstaller
 
@@ -26,7 +27,7 @@ jobs:
         with:
           name: gemini-cli
           retention-days: 1
-          path: dist/gemini-cli'
+          path: dist/gemini-cli
 
   release:
     needs: build
@@ -39,11 +40,11 @@ jobs:
 
       - name: Upload release asset
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCOUNT_TOKEN  }}
+          GITHUB_TOKEN: ${{ secrets.ACCOUNT_TOKEN }}
         uses: softprops/action-gh-release@v1
         with:
           fail_if_no_release: false
-          files: ./
-          tag_name: ${{ steps.create_release.outputs.tag_name }}
+          files: dist/gemini-cli
+          tag_name: ${{ github.ref }}
           name: ${{ github.event.inputs.releaseName }}
           token: ${{ secrets.ACCOUNT_TOKEN }}
