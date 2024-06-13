@@ -34,14 +34,18 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: gemini-cli
-
+      - name: Create Zip
+        run: |
+          v=$(echo ${{ github.ref }} | cut -c 11-)
+          ls -la 
+          zip -r gemini-cli-$v.zip ./
       - name: Upload release asset
         env:
           GITHUB_TOKEN: ${{ secrets.ACCOUNT_TOKEN }}
         uses: softprops/action-gh-release@v1
         with:
           fail_if_no_release: false
-          files: dist/gemini-cli
-          tag_name: ${{ github.ref }}
+          files: gemini-cli.zip
+          tag_name: ${{ steps.create_release.outputs.tag_name }}
           name: ${{ github.event.inputs.releaseName }}
           token: ${{ secrets.ACCOUNT_TOKEN }}
