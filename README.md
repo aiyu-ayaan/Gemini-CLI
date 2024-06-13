@@ -1,6 +1,10 @@
 ## Gemini CLI: Interact with Google's AI on the Command Line
 
-[![Watch the video](docs/asserts/preview.png)](docs/asserts/gemini-cli.mp4)
+
+
+https://github.com/aiyu-ayaan/Gemini-CLI/assets/76834976/dbaf9e35-28fc-4514-92c3-3235cfcc36c2
+
+
 This is a command-line interface (CLI) for interacting with Google's Gemini large language models (LLMs) using your
 Gemini API key. It allows you to:
 
