@@ -9,10 +9,9 @@ console = console.Console()
 
 
 def create_key_file():
-    """Create a key file if it does not exist
-    """
+    """Create a key file if it does not exist."""
     try:
-        print('Generating key file from  https://ai.google.dev/gemini-api/docs/api-key')
+        print('Generating key file from https://ai.google.dev/gemini-api/docs/api-key')
         api_key = input('Enter your key: ')
         while len(api_key) == 0:
             console.print('Key cannot be empty.\nLink to generate key https://ai.google.dev/gemini-api/docs/api-key',
@@ -20,11 +19,12 @@ def create_key_file():
             api_key = input('Enter your key: ')
         with open('key.txt', 'w') as f:
             f.write(api_key)
-            f.close()
-            console.print('Key file created successfully')
+        console.print('Key file created successfully')
+    except IOError as e:
+        console.print(f'IOError: {e}', style='bold red')
+        exit(1)
     except Exception as e:
-        console.print('Error creating key file.',
-                      style='bold red')
+        console.print(f'Unexpected error: {e}', style='bold red')
         exit(1)
 
 
@@ -36,20 +36,22 @@ def load_key_from_root() -> str:
     """
     try:
         with open('key.txt', 'r') as f:
-            #         check if the key is empty
-            if len(f.read()) == 0:
+            # Check if the key is empty
+            l_key = f.read().strip()
+            if len(l_key) == 0:
                 console.print(
                     'Key cannot be empty.\nLink to generate key https://ai.google.dev/gemini-api/docs/api-key',
                     style='bold red')
                 exit(1)
-            f.seek(0)
-            return f.readline().strip()
-    except FileNotFoundError as e:
+            return l_key
+    except FileNotFoundError:
         create_key_file()
         return load_key_from_root()
+    except IOError as e:
+        console.print(f'IOError: {e}', style='bold red')
+        exit(1)
     except Exception as e:
-        console.print('Error reading key file\nLink to generate key https://ai.google.dev/gemini-api/docs/api-key',
-                      style='bold red')
+        console.print(f'Unexpected error: {e}', style='bold red')
         exit(1)
 
 
