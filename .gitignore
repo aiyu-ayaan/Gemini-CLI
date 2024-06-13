@@ -4,3 +4,4 @@
 src/gemini-cli/key.txt
 dist/
 build/
+*.docx

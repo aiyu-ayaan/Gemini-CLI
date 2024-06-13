@@ -18,12 +18,14 @@ class Gemini:
         genai.configure(api_key=key)
         self.__model = genai.GenerativeModel('gemini-1.5-flash')
 
-    def ask(self, question: str, max_words: int = 0):
+    def ask(self, question: str, max_words: int = 0) -> str | None:
         """Ask a question to the model
 
         Args:
             question (str): Question to ask
             max_words (int, optional): Word limit. Default to 0.
+        Returns:
+            str | None: Response from the model
         """
         console.print(f'🐼', f'Asking: {question}\n', style='bold blue')
         with console.status('[bold green]Generating response...', spinner='moon'):
@@ -38,17 +40,21 @@ class Gemini:
 
         if has_error:
             console.print('❌', f' Error: {response}', style='bold red')
+            return None
         else:
             markdown = Markdown(response)
             console.print(markdown, style='bold green')
+        return response
 
-    def summarize_transcript(self, youtube_url: str, question: str = '', max_words: int = 0):
+    def summarize_transcript(self, youtube_url: str, question: str = '', max_words: int = 0) -> str | None:
         """Summarize a transcript from a YouTube video or can answer a question from the transcript
 
         Args:
             youtube_url (str): link to the YouTube video
             question (str, optional): Question to want to ask. Defaults to ''.
             max_words (int, optional): Word limit. Default to 0.
+        Returns:
+            str | None: Response from the transcript
         """
         console.print(f'🐼', f'Getting transcript from: {youtube_url}\n', style='bold blue')
         with console.status(f'[bold green]{'Generating answer...' if question else 'Generating summary...'}',
@@ -71,17 +77,21 @@ class Gemini:
                 response = e
         if has_error:
             console.print('❌', f' Error: {response}', style='bold red')
+            return None
         else:
             markdown = Markdown(response)
             console.print(markdown, style='bold green')
+        return response
 
-    def generate_response_from_pdf(self, text: str, question: str, max_words: int = 0):
+    def generate_response_from_pdf(self, text: str, question: str, max_words: int = 0) -> str | None:
         """Generate a response from the PDF
 
         Args:
             text (str): Text to generate a response from
             question (str): Question to ask
             max_words (int, optional): Word limit. Default to 0.
+        Returns:
+            str | None: Response from the PDF
         """
         console.print(f'🐼', f'Generating response from the PDF\n', style='bold blue')
         with console.status('[bold green]Generating response...', spinner='moon'):
@@ -98,6 +108,8 @@ class Gemini:
 
         if has_error:
             console.print('❌', f' Error: {response}', style='bold red')
+            return None
         else:
             markdown = Markdown(response)
             console.print(markdown, style='bold green')
+        return response

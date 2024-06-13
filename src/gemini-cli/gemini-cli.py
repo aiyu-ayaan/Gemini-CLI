@@ -4,6 +4,7 @@ import pdf as pdf
 import argparse
 import sys
 from version import InfoAction
+from export import export_md_to_docx
 
 console = console.Console()
 
@@ -68,6 +69,8 @@ if __name__ == '__main__':
     parser.add_argument('--pdf', '-p', type=str, help='PDF file path to summarize')
     parser.add_argument('--start-page-index', '-spi', type=int, help='Start page index for the PDF file', default=0)
     parser.add_argument('--end-page-index', '-epi', type=int, help='End page index for the PDF file', default=None)
+    parser.add_argument('--export-docx', '-ed', type=str, help='Export the response to docx file')
+    parser.add_argument('--output-path', '-op', type=str, help='Output path for the docx file', default='.')
 
     # parse the arguments
     args = parser.parse_args()
@@ -77,6 +80,8 @@ if __name__ == '__main__':
     pdf_file_path = args.pdf
     start_page_index = args.start_page_index
     end_page_index = args.end_page_index
+    export_docx = args.export_docx
+    output_path = args.output_path
 
     g = gemini.Gemini(key=key)
 
@@ -89,15 +94,22 @@ if __name__ == '__main__':
             end=end_page_index
         )
         # console.print(text, style='bold green')
-        g.generate_response_from_pdf(text, question, max_words)
+        response = g.generate_response_from_pdf(text, question, max_words)
+        if export_docx and len(response) > 0 and response:
+            export_md_to_docx(response, export_docx, output_path)
         sys.exit(0)
 
     if youtube_url:
-        g.summarize_transcript(youtube_url=youtube_url, max_words=max_words, question=question if question else '')
+        response = g.summarize_transcript(youtube_url=youtube_url, max_words=max_words,
+                                          question=question if question else '')
+        if export_docx and len(response) > 0 and response:
+            export_md_to_docx(response, export_docx, output_path)
         sys.exit(0)
     # check if the question is empty
     if len(question) == 0:
         print('Question cannot be empty')
         sys.exit(1)
     # create a Gemini instance
-    g.ask(question.strip(), max_words)
+    response = g.ask(question.strip(), max_words)
+    if export_docx and len(response) > 0 and response:
+        export_md_to_docx(response, export_docx, output_path)
