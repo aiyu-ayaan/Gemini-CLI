@@ -17,9 +17,6 @@ jobs:
           source venv/bin/activate
           pip install -r ./requirements.txt
           pip install pyinstaller
-
-      - name: Build artifact
-        run: |
           pyinstaller ./gemini-cli.spec
 
       - name: Upload artifact
