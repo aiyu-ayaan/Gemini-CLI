@@ -1,9 +1,6 @@
 name: Generate Documentation
 on:
-  push:
-    branches:
-      - master
-      - main
+  workflow_dispatch: # This will allow you to run the workflow manually
 permissions:
   contents: write
 jobs:
@@ -26,5 +23,5 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - run: |
-              pip install -r requirements_docs.txt
+          pip install -r requirements_docs.txt
       - run: mkdocs gh-deploy --force
