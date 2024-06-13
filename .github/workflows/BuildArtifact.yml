@@ -16,7 +16,7 @@ jobs:
 
       - name: Build artifact
         run: |
-          pyinstaller gemini-cli.spec
+          pyinstaller ./gemini-cli.spec
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
