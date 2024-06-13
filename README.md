@@ -1,13 +1,13 @@
 ## Gemini CLI: Interact with Google's AI on the Command Line
 
-![Preview Image](preview.png)
+[![Watch the video](docs/asserts/preview.png)](docs/asserts/gemini-cli.mp4)
 This is a command-line interface (CLI) for interacting with Google's Gemini large language models (LLMs) using your
 Gemini API key. It allows you to:
 
-* **Generate text:**  Prompt Gemini for creative text formats, like poems, code, scripts, musical pieces, email,
+* **Generate text:** Prompt Gemini for creative text formats, like poems, code, scripts, musical pieces, email,
   letters, etc.
 * **Summarize YouTube videos:** Provide a YouTube URL and get a concise summary of the video content.
-* **Ask questions about YouTube videos:**  After summarizing a video, use Gemini's knowledge to answer your questions
+* **Ask questions about YouTube videos:** After summarizing a video, use Gemini's knowledge to answer your questions
   about the content.
 
 **Features:**
@@ -75,21 +75,37 @@ their descriptions.
     - Type: `str`
     - Description: YouTube URL to get the transcript from.
     - Example: `--youtube "https://www.youtube.com/watch?v=dQw4w9WgXcQ"`
+- `--pdf` , `-p`:
+    - Type: `str`
+    - Description: PDF file to get the text from.
+    - Example: `--pdf "path/to/pdf/file.pdf"`
+- `--start-page-index` , `-spi`:
+    - Type: `int`
+    - Description: The index of the page to start extracting text from.
+    - Example: `--start-page-index 2
+- `--end-page-index` , `-epi`:
+    - Type: `int`
+    - Description: The index of the page to end extracting text from.
+    - Example: `--end-page-index 5`
+- `--export-docx` , `-ed`:
+    - Type: `str`
+    - Description: Export the response to docx file.
+    - Example: `--export-docx "file.docx"`
+- `--output-path` , `-op`:
+    - Type: `str`
+    - Description: The path to save the response.
+    - Example: `--output-path "path/to/save/"`
 
 ### Summarizing YouTube Videos
 
 To summarize a YouTube video, you can use the `-yt`, `-wl`, and `-q` tags together. Below is an example of how to use
 these tags:
 
-```bash
-python gemini-cli -yt "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -wl 100 -q "Summarize the main points of this video."
-```
-
 In this example:
 
 - The `-yt` tag specifies the YouTube URL.
 - The `-wl` tag sets a word limit of 100 words for the response.
-- The `-q` tag provides the question to ask Gemini, which in this case is to summarize the main points of the video.
+- The `-q` tag provides the question to ask Gemini which in this case is to summarize the main points of the video.
 
 **Examples**
 
@@ -121,6 +137,18 @@ python gemini-cli -yt "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
 ```bash
 python gemini-cli -yt "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -wl 100 -q "What are the main points discussed in this video?"
+```
+
+***Ask a Question from the provided PDF file***
+
+```bash
+gemini -p "path/to/file.pdf" -q "What is the main idea of this document?"
+```
+
+***Export the response to a docx file***
+
+```bash
+gemini -q "What is the capital of France?" -ed "output.docx"
 ```
 
 **License:**
